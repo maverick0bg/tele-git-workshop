@@ -1,8 +1,9 @@
 name: Inspect PR
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on: pull_request
-  paths:
-    - 'backend/**'
+on:
+  pull_request:
+    paths:
+      - 'backend/**'
 
 jobs:
   first_job:
