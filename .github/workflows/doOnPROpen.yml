@@ -13,12 +13,14 @@ jobs:
       
   second_job:
     runs-on: ubuntu-latest
+    outputs:
+      output1: ${{ steps.step1.outputs.test }}
+      output2: ${{ steps.step2.outputs.test }}
+
     steps:
       - id: step1
-        #output1: "${{ steps.step1.outputs.test }}"
         run: "echo \"test=hello\" >> $GITHUB_OUTPUT"
       - id: step2
-        #output2: "${{ steps.step2.outputs.test }}"
         run: "echo \"test=world\" >> $GITHUB_OUTPUT"
 
   job2:
