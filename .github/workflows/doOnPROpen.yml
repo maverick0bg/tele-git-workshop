@@ -1,21 +1,20 @@
-name: Inspect PR
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on:
-  pull_request:
-    paths:
-      - 'backend/**'
-
 jobs:
+  job2:
+    needs: job1
+    runs-on: ubuntu-latest
+    steps:
+      run: "echo ${{needs.second_job.outputs.output1}} ${{needs.second_job.outputs.output2}}"
   second_job:
     steps:
-      - id: step1
-        - run: echo "test=hello" >> $GITHUB_OUTPUT
-        - output1: ${{ steps.step1.outputs.test }}
-      - id: step2
-        - run: echo "test=world" >> $GITHUB_OUTPUT
-        - output2: ${{ steps.step2.outputs.test }}
-  job2:
-    runs-on: ubuntu-latest
-    needs: job1
-    steps:
-      - run: echo ${{needs.second_job.outputs.output1}} ${{needs.second_job.outputs.output2}}
+      step1:
+        output1: "${{ steps.step1.outputs.test }}"
+        run: "echo \"test=hello\" >> $GITHUB_OUTPUT"
+      step2:
+        output2: "${{ steps.step2.outputs.test }}"
+        run: "echo \"test=world\" >> $GITHUB_OUTPUT"
+name: "Inspect PR"
+run-name: "${{ github.actor }} is testing out GitHub Actions 🚀"
+true:
+  pull_request:
+    paths:
+      - backend/**
