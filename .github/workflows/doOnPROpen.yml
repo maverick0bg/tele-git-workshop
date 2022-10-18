@@ -1,3 +1,4 @@
+---
 jobs:
   job2:
     needs: job1
@@ -6,10 +7,10 @@ jobs:
       run: "echo ${{needs.second_job.outputs.output1}} ${{needs.second_job.outputs.output2}}"
   second_job:
     steps:
-      step1:
+      - step1:
         output1: "${{ steps.step1.outputs.test }}"
         run: "echo \"test=hello\" >> $GITHUB_OUTPUT"
-      step2:
+      - step2:
         output2: "${{ steps.step2.outputs.test }}"
         run: "echo \"test=world\" >> $GITHUB_OUTPUT"
 name: "Inspect PR"
