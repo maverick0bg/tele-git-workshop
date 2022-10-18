@@ -11,12 +11,6 @@ jobs:
     steps:
       - run: "echo step1 is running"
       
-  job2:
-    needs: job1
-    runs-on: ubuntu-latest
-    steps:
-      - run: "echo ${{needs.second_job.outputs.output1}} ${{needs.second_job.outputs.output2}}"
-      
   second_job:
     runs-on: ubuntu-latest
     steps:
@@ -26,3 +20,10 @@ jobs:
       - id: step2
         #output2: "${{ steps.step2.outputs.test }}"
         run: "echo \"test=world\" >> $GITHUB_OUTPUT"
+
+  job2:
+    needs: second_job
+    runs-on: ubuntu-latest
+    steps:
+      - run: "echo ${{needs.second_job.outputs.output1}} ${{needs.second_job.outputs.output2}}"
+      
