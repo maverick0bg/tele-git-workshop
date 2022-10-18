@@ -7,7 +7,6 @@ on:
 
 jobs:
   second_job:
-    name: My second job
     steps:
       - id: step1
         - run: echo "test=hello" >> $GITHUB_OUTPUT
