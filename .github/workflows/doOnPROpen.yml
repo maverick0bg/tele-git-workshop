@@ -9,7 +9,7 @@ jobs:
   job1:
     runs-on: ubuntu-latest
     steps:
-      - run: "exho step1 is running"
+      - run: "echo step1 is running"
       
   job2:
     needs: job1
