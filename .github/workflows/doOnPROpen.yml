@@ -1,10 +1,10 @@
 name: Inspect PR
-  run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-  on:
-    pull_request:
-      types: [ opened, reopened ]
-    paths:
-      - 'backend/**'
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+on:
+  pull_request:
+    types: [ opened, reopened ]
+  paths:
+    - 'backend/**'
 
 jobs:
   first_job:
