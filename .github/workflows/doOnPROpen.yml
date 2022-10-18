@@ -13,12 +13,14 @@ jobs:
       
   second_job:
     runs-on: ubuntu-latest
+    outputs:
+      output1: ${{ steps.step1.outputs.test }}
+      output2: ${{ steps.step2.outputs.test }}
+
     steps:
       - id: step1
-        #output1: "${{ steps.step1.outputs.test }}"
         run: "echo \"test=hello\" >> $GITHUB_OUTPUT"
       - id: step2
-        #output2: "${{ steps.step2.outputs.test }}"
         run: "echo \"test=world\" >> $GITHUB_OUTPUT"
 
   job2:
@@ -26,4 +28,41 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: "echo ${{needs.second_job.outputs.output1}} ${{needs.second_job.outputs.output2}}"
-      
+  
+  lint1:
+    name: DevSkim1
+    runs-on: ubuntu-20.04
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run DevSkim scanner
+        uses: microsoft/DevSkim-Action@v1
+        
+      - name: Upload DevSkim scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: devskim-results.sarif
+
+  lint2:
+    name: DevSkim2
+    runs-on: ubuntu-20.04
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run DevSkim scanner
+        uses: microsoft/DevSkim-Action@v1
+        
+      - name: Upload DevSkim scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: devskim-results.sarif
