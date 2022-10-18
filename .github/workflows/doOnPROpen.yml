@@ -6,8 +6,6 @@ on:
       - 'backend/**'
 
 jobs:
-  first_job:
-    name: My first job
   second_job:
     name: My second job
     steps:
